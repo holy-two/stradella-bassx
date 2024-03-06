@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css?family=ZCOOL+QingKe+HuangYou");
+
+body,
+html {
+  margin: 0;
+  font-family: "ZCOOL QingKe HuangYou", cursive;
+  font-size: 18px;
+  height: 100%;
+  width: 100%;
+}
+
+html {
+  background: linear-gradient(135deg, #f299f7 0%, #7db9e8 100%);
+}
