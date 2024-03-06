@@ -1,6 +1,6 @@
 # stradella-bassx
 
-基于[stradella-bass)](https://github.com/freshly-pressed-trousers/stradella-bass)进行的react新版本迁移工作
+基于[stradella-bass](https://github.com/freshly-pressed-trousers/stradella-bass)进行的react新版本迁移工作
 
 使用react最新版本替换旧版本，使用vite作为新的构建工具，使用jotai完全替换redux
 
