@@ -1,13 +1,9 @@
 import { css, cx } from '@emotion/css'
 import { NotesContainerConnectorProps } from '../../containers/Notes/NotesContainer'
+import { isBlackNote } from '../../utils/isBlackNote'
 
 export interface KeyProps extends NotesContainerConnectorProps {
 }
-
-export function isBlackNote (midiNote: number) {
-  return [1, 3, 6, 8, 10].indexOf(midiNote % 12) >= 0
-}
-
 export default function KeyComponent (props: KeyProps) {
   const { midiNote, isOn, triggerNote, releaseNote } = props
 
