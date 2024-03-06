@@ -14,6 +14,7 @@ export default function createActionEffect () {
     if (action.type === NOTE_ON) {
       trigger(action.payload.midiNote)
     } else if (action.type === NOTE_OFF) {
+      console.log(action)
       release(action.payload.midiNote)
     }
   }

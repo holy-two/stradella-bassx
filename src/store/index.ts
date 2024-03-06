@@ -1,38 +1,38 @@
-import { atom, useAtom, useAtomValue } from 'jotai'
-import { useCallback, useEffect, useState } from 'react'
+import { atom, useAtomValue, useSetAtom } from 'jotai'
+import { useCallback, useRef } from 'react'
 import createActionEffect from './middleware/actionEffect'
-import { NOTE_ON } from './actionTypes/notes'
+import { NOTE_OFF, NOTE_ON } from './actionTypes/notes'
 
 export const allNotes = atom([] as boolean[])
 
 export function useAllNotesActions () {
-  const [notes, setNotes] = useAtom(allNotes)
-  const [action, setAction] = useState('init')
-  const [actionPayload, setActionPayload] = useState({
-    midiNote: -1
-  })
-  const actionEffect = createActionEffect()
-
-  useEffect(() => {
-    actionEffect({ type: action, payload: actionPayload })
-    const newNotes = notes.slice()
-    if (action === NOTE_ON) {
-      newNotes[actionPayload.midiNote] = true // 此步骤存疑
-    } else {
-      newNotes[actionPayload.midiNote] = false // 此步骤存疑
-    }
-    setNotes(newNotes)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [action, actionEffect, actionPayload])
+  const setNotes = useSetAtom(allNotes)
+  const actionEffect = useRef(createActionEffect())
 
   const noteOn = (midiNote: number) => {
-    setAction(NOTE_ON)
-    setActionPayload({ midiNote })
+    setNotes(notes => {
+      notes[midiNote] = true
+      return notes
+    })
+    actionEffect.current({
+      type: NOTE_ON,
+      payload: {
+        midiNote
+      }
+    })
   }
 
   const noteOff = (midiNote: number) => {
-    setAction(NOTE_ON)
-    setActionPayload({ midiNote })
+    setNotes(notes => {
+      notes[midiNote] = false
+      return notes
+    })
+    actionEffect.current({
+      type: NOTE_OFF,
+      payload: {
+        midiNote
+      }
+    })
   }
 
   return {

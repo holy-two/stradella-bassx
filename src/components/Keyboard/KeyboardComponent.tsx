@@ -18,7 +18,7 @@ export default function KeyboardComponent () {
 
   return (
     <div className={styleWrapper}>
-      {new Array(KEYS).fill(true).map((v, index) => (
+      {new Array(KEYS).fill(true).map((_, index) => (
         <Key key={index} midiNote={BASE_NOTE + index} />
       ))}
     </div>
