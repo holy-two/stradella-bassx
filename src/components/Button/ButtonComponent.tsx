@@ -2,10 +2,10 @@ import { css, cx } from '@emotion/css'
 import { useCallback } from 'react'
 import { type NotesContainerConnectorProps } from '../../containers/Notes/NotesContainer'
 
-export interface ButtonComponentProps extends NotesContainerConnectorProps {
+export interface ButtonProps extends NotesContainerConnectorProps {
 }
 
-export default function ButtonComponent (props: ButtonComponentProps) {
+export default function ButtonComponent (props: ButtonProps) {
   const { isOn, triggerNote, releaseNote, midiNote, midiNotes } = props
 
   const isChord = !!midiNotes
@@ -15,7 +15,7 @@ export default function ButtonComponent (props: ButtonComponentProps) {
     if (isChord) {
       midiNotes.forEach(note => triggerNote(note))
     } else {
-      triggerNote(midiNote)
+      triggerNote(midiNote!)
     }
   }, [isChord, midiNote, midiNotes, triggerNote])
 
@@ -23,7 +23,7 @@ export default function ButtonComponent (props: ButtonComponentProps) {
     if (isChord) {
       midiNotes.forEach(note => releaseNote(note))
     } else {
-      releaseNote(midiNote)
+      releaseNote(midiNote!)
     }
   }, [isChord, midiNote, midiNotes, releaseNote])
 

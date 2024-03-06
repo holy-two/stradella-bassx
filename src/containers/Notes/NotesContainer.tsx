@@ -3,8 +3,8 @@ import { useAllNoteSelector, useAllNotesActions } from '../../store'
 import type { JSX } from 'react/jsx-runtime'
 
 export interface NotesContainerConnectorOwnProps {
-  midiNote: number
-  midiNotes: number[]
+  midiNote?: number
+  midiNotes?: number[]
 }
 
 export interface NotesContainerComponentTrigger {
@@ -26,7 +26,7 @@ export interface NotesContainerComponent {
 }
 
 export default function NotesContainer (Comp: NotesContainerComponent) {
-  return (props: PropsWithChildren<NotesContainerConnectorProps>) => {
+  return (props: PropsWithChildren<NotesContainerConnectorOwnProps>) => {
     const { midiNote, midiNotes } = props
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { isNoteOn } = useAllNoteSelector()
@@ -36,7 +36,7 @@ export default function NotesContainer (Comp: NotesContainerComponent) {
       if (Array.isArray(midiNotes)) {
         return midiNotes.every(midiNote => isNoteOn(midiNote))
       } else {
-        return isNoteOn(midiNote)
+        return isNoteOn(midiNote!)
       }
     }, [midiNote, midiNotes, isNoteOn])
 
